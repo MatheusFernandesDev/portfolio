@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
-import { Inter as FontSans } from "next/font/google";
+import { Inter as FontSans, Plus_Jakarta_Sans } from "next/font/google";
+
 import "./globals.css";
 
 import { cn } from "@/lib/utils";
@@ -10,6 +11,11 @@ import Header from "@/components/header";
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
+});
+
+const FontPlusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-plus-jakarta-sans",
 });
 
 export const metadata: Metadata = {
@@ -26,8 +32,8 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable
+          "w-screen h-screen  bg-background font-plus-jakarta-sans antialiased overflow-x-hidden",
+          FontPlusJakartaSans.variable
         )}
       >
         <ThemeProvider

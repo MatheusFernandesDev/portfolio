@@ -12,7 +12,7 @@ const Header = () => {
     setIsOpen(!isOpen);
   };
   return (
-    <div className=" h-20 flex items-center justify-between my-5 mx-0 md:mx-4  p-2 md:p-3 shadow-md shadow-violet-500">
+    <div className=" h-20 flex items-center justify-between p-2 md:p-3 shadow-md shadow-violet-500">
       <div className="flex">
         <AvatarPerfil />
         <div className="flex flex-col text-left my-2 ml-2">

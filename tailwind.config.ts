@@ -20,7 +20,7 @@ const config = {
     },
     extend: {
       fontFamily: {
-        sans: ["Inter var", ...fontFamily.sans],
+        sans: ["Inter var", ...fontFamily.sans, "Plus Jakarta Sans"],
       },
 
       colors: {
