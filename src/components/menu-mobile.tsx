@@ -1,6 +1,5 @@
 "use client";
 import { MdMenuOpen } from "react-icons/md";
-import { usePathname, useRouter } from "next/navigation";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { BsLinkedin } from "react-icons/bs";
 import { BsGithub } from "react-icons/bs";
@@ -18,21 +17,25 @@ import { Button } from "./ui/button";
 type MenurBarProps = {
   isOpen: boolean;
   onToggle: () => void;
+  onNavigate?: (sectionId: string) => void;
 };
 
-const MenurBar = ({ isOpen, onToggle }: MenurBarProps) => {
-  const router = useRouter();
-  const pathname = usePathname();
-
-  const getButtonClass = (pathname: string, route: string) => {
-    return pathname === route
-      ? "bg-violet-600 text-white"
-      : "bg-transparent text-black";
-  };
-  const handleButtonClick = (route: string) => {
-    router.push(route);
+const MenurBar = ({ isOpen, onToggle, onNavigate }: MenurBarProps) => {
+  const handleButtonClick = (sectionId: string) => {
+    if (onNavigate) {
+      onNavigate(sectionId);
+    }
     onToggle();
   };
+
+  const navItems = [
+    { id: "hero", label: "Início" },
+    { id: "about", label: "Sobre" },
+    { id: "skills", label: "Habilidades" },
+    { id: "projects", label: "Projetos" },
+    { id: "experience", label: "Carreira" },
+    { id: "contact", label: "Contato" },
+  ];
 
   return (
     <Sheet open={isOpen}>
@@ -52,78 +55,15 @@ const MenurBar = ({ isOpen, onToggle }: MenurBarProps) => {
           </SheetTitle>
 
           <div className="flex flex-col gap-1 ">
-            <Button
-              className={[
-                getButtonClass(pathname, "/"),
-                "w-full text-white font-bold py-2 px-4 rounded-none",
-                "text-black",
-                "dark:text-white",
-                "hover:text-white",
-              ].join(" ")}
-              onClick={() => handleButtonClick("/")}
-            >
-              Perfil
-            </Button>
-            <Button
-              className={[
-                getButtonClass(pathname, "/skills"),
-                "w-full text-white font-bold py-2 px-4 rounded-none",
-                "text-black",
-                "dark:text-white",
-                "hover:text-white",
-              ].join(" ")}
-              onClick={() => handleButtonClick("/skills")}
-            >
-              Habilidades
-            </Button>
-            <Button
-              className={[
-                getButtonClass(pathname, "/projects"),
-                "w-full text-white font-bold py-2 px-4 rounded-none",
-                "text-black",
-                "dark:text-white",
-                "hover:text-white",
-              ].join(" ")}
-              onClick={() => handleButtonClick("/projects")}
-            >
-              Projetos
-            </Button>
-            <Button
-              className={[
-                getButtonClass(pathname, "/career"),
-                "w-full text-white font-bold py-2 px-4 rounded-none",
-                "text-black",
-                "dark:text-white",
-                "hover:text-white",
-              ].join(" ")}
-              onClick={() => handleButtonClick("/career")}
-            >
-              Carreira
-            </Button>
-            <Button
-              className={[
-                getButtonClass(pathname, "/education"),
-                "w-full text-white font-bold py-2 px-4 rounded-none",
-                "text-black",
-                "dark:text-white",
-                "hover:text-white",
-              ].join(" ")}
-              onClick={() => handleButtonClick("/education")}
-            >
-              Educação
-            </Button>
-            <Button
-              className={[
-                getButtonClass(pathname, "/contact"),
-                "w-full text-white font-bold py-2 px-4 rounded-none",
-                "text-black",
-                "dark:text-white",
-                "hover:text-white",
-              ].join(" ")}
-              onClick={() => handleButtonClick("/contact")}
-            >
-              Contato
-            </Button>
+            {navItems.map((item) => (
+              <Button
+                key={item.id}
+                className="w-full font-bold py-2 px-4 rounded-none hover:bg-primary/10 hover:text-primary"
+                onClick={() => handleButtonClick(item.id)}
+              >
+                {item.label}
+              </Button>
+            ))}
           </div>
         </SheetHeader>
         <SheetFooter className="fixed bottom-0 left-0 right-0 p-4 shadow-md">
